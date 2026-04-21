@@ -2,11 +2,6 @@ import graphene
 from graphene_django import DjangoObjectType
 from .models import Shop
 
-
-# ──────────────────────────────────────────────
-# GraphQL Type
-# ──────────────────────────────────────────────
-
 class ShopType(DjangoObjectType):
     class Meta:
         model = Shop
@@ -22,10 +17,6 @@ class ShopType(DjangoObjectType):
     def resolve_phone(self, info):
         return self.phone or []
 
-
-# ──────────────────────────────────────────────
-# Queries
-# ──────────────────────────────────────────────
 
 class Query(graphene.ObjectType):
     all_shops = graphene.List(ShopType, description="Fetch all shops")
@@ -44,10 +35,6 @@ class Query(graphene.ObjectType):
         except Shop.DoesNotExist:
             return None
 
-
-# ──────────────────────────────────────────────
-# Mutations
-# ──────────────────────────────────────────────
 
 class CreateShop(graphene.Mutation):
     """Create a new Shop"""
